@@ -24,8 +24,10 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-cypress.commands.add('loginToApplication', () => 
+Cypress.Commands.add('loginToApplication', () => 
 {
     cy.visit('/login')
-    
+    cy.get('#email').clear().type('fahim.arshad@devsinc.com')
+    cy.get('#password').clear().type('fahim.arshad541')
+    cy.get('#signin').click()
 })

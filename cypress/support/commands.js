@@ -26,8 +26,21 @@
 
 Cypress.Commands.add('loginToApplication', () => 
 {
-    cy.visit('/login')
-    cy.get('#email').clear().type('fahim.arshad@devsinc.com')
-    cy.get('#password').clear().type('fahim.arshad541')
-    cy.get('#signin').click()
+    const credentials = {
+        "user": {
+            "email": Cypress.env('username'),
+            "password": Cypress.env('password')
+        }
+    }
+
+    cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', credentials)
+        .its('body').then( body => {
+            const token = body.user.token
+            cy.wrap(token).as('token')
+            cy.visit('/', {
+                onBeforeLoad (win){
+                    win.localStorage.setItem('jwtToken', token)
+                }
+            })
+        })
 })

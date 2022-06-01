@@ -1,24 +1,31 @@
 /// <reference types="cypress" />
+import { onNewArticlePage } from "../support/page_object/newArticlePage.js"
+//import { navigateTo } from "../support/page_object/allPages.js"
 
-describe ('Practice Test Cases',  () => {
+describe.only('Practice Test Cases',  () => {
 
     beforeEach ('Login To Application', () => {
         cy.loginToApplication()
     })
 
-    it ('Verify Post Artciles API', () => {
+    it('Verify Post Articles API', () => {
+        cy.visit('/editor')
+
+        const title = 'Sample Article'
+        const description = 'This is description of Sample Artcile'
+        const body = 'This is the body of Sample Artcile'
+        const tags = '#sampleArticle'
 
         cy.intercept ({
             method: 'POST',
             path: '**/articles',
         }).as('postArticles')
 
-        cy.contains('New Article').click()
-        cy.get('#title').clear().type('Sample Article')
-        cy.get('#description').clear().type('This is description of Sample Artcile')
-        cy.get('#body').clear().type('This is the body of Sample Artcile')
-        cy.get('#tags').clear().type('#sampleArticle')
-        cy.get('submit')
-    })
+        onNewArticlePage.publish_article(title, description, body, tags)
 
+        cy.wait('@postArticles')
+        cy.get('@postArticles').then( xhr => {
+            console.log(xhr)
+        })
+    })
 })

@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2022-06-01T09:30:54.423Z",
+    "end": "2022-06-01T09:31:05.675Z",
+    "duration": 11252,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "e7808268-51b6-42af-8c6e-da5e1dbcd978",
+      "title": "",
+      "fullFile": "cypress/integration/practiceTestCases.spec.js",
+      "file": "cypress/integration/practiceTestCases.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "246c4182-dd46-4a6b-892c-051026e2b040",
+          "title": "Practice Test Cases",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify Post Articles API",
+              "fullTitle": "Practice Test Cases Verify Post Articles API",
+              "timedOut": null,
+              "duration": 11151,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/editor');\nconst title = 'Sample Article';\nconst description = 'This is description of Sample Artcile';\nconst body = 'This is the body of Sample Artcile';\nconst tags = '#sampleArticle';\ncy.intercept({\n  method: 'POST',\n  path: '**/articles'\n}).as('postArticles');\n_newArticlePage.onNewArticlePage.publish_article(title, description, body, tags);\ncy.wait('@postArticles');\ncy.get('@postArticles').then(xhr => {\n  console.log(xhr);\n});",
+              "err": {},
+              "uuid": "79c62494-a2b9-4ce3-a2e1-6b0fb88873d3",
+              "parentUUID": "246c4182-dd46-4a6b-892c-051026e2b040",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "79c62494-a2b9-4ce3-a2e1-6b0fb88873d3"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 11151,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/mochaAwesome/",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

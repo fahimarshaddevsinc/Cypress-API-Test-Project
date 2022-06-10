@@ -24,8 +24,23 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-cypress.commands.add('loginToApplication', () => 
+Cypress.Commands.add('loginToApplication', () => 
 {
-    cy.visit('/login')
-    
+    const credentials = {
+        "user": {
+            "email": Cypress.env('username'),
+            "password": Cypress.env('password')
+        }
+    }
+
+    cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', credentials)
+        .its('body').then( body => {
+            const token = body.user.token
+            cy.wrap(token).as('token')
+            cy.visit('/', {
+                onBeforeLoad (win){
+                    win.localStorage.setItem('jwtToken', token)
+                }
+            })
+        })
 })
